@@ -53,4 +53,3 @@ python -m scripts.gee.drive.download_drive_to_repo
 - **Hosting:** GitHub Pages (gratuito)
 
 ---
-*Basado en la arquitectura de GENIUS UPLA (Quilpué)*
