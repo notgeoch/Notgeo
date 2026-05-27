@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotGeo — Viña del Mar</title>
+  <meta name="description" content="NotGeo — Plataforma de monitoreo ambiental satelital para Viña del Mar. Indicadores de vegetación, temperatura, calidad del aire y huella urbana." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:   #2d7a4f;
+      --green-light: #4caf7a;
+      --dark:    #0f1a13;
+      --gray:    #6b7280;
+      --bg:      #f8faf8;
+      --white:   #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .nav-brand { font-size: 1.4rem; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--gray); font-weight: 300; font-size: 0.9rem; margin-left: 0.4rem; }
+    .nav-links a {
+      margin-left: 1.5rem; text-decoration: none; color: var(--gray);
+      font-size: 0.9rem; font-weight: 500; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .btn-explorer {
+      background: var(--green); color: white !important;
+      padding: 0.45rem 1.1rem; border-radius: 6px;
+    }
+    .btn-explorer:hover { background: var(--green-light) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 1.5rem 4rem;
+      background: linear-gradient(160deg, #e8f5ee 0%, #f8faf8 60%);
+    }
+    .hero-badge {
+      display: inline-block; background: #dcf0e6; color: var(--green);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700;
+      line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .hero h1 em { color: var(--green); font-style: normal; }
+    .hero p {
+      max-width: 560px; color: var(--gray); font-size: 1.05rem;
+      line-height: 1.6; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--green); color: white; text-decoration: none;
+      padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 600;
+      font-size: 1rem; transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+    .btn-secondary {
+      background: white; color: var(--dark); text-decoration: none;
+      padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 500;
+      font-size: 1rem; border: 1px solid #d1d5db; transition: border-color .2s;
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── INDICADORES ── */
+    .indicators {
+      padding: 5rem 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      text-align: center; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      background: white; border-radius: 12px; padding: 1.5rem;
+      border: 1px solid #e5e7eb; transition: box-shadow .2s, transform .15s;
+    }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .card p { font-size: 0.82rem; color: var(--gray); line-height: 1.4; }
+
+    /* ── SOBRE ── */
+    .about {
+      background: var(--dark); color: white;
+      padding: 5rem 1.5rem;
+    }
+    .about-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .about h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+    .about p { color: #9ca3af; line-height: 1.7; font-size: 1rem; margin-bottom: 1rem; }
+    .about p:last-child { margin-bottom: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: 0.82rem; color: var(--gray);
+      border-top: 1px solid #e5e7eb;
+    }
+    footer a { color: var(--green); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.8rem 1rem; }
+      .nav-links .btn-explorer { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
+      .nav-links a:not(.btn-explorer) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">NotGeo <span>Viña del Mar</span></div>
+    <div class="nav-links">
+      <a href="#indicadores">Indicadores</a>
+      <a href="#sobre">Sobre</a>
+      <a href="explorer.html" class="btn-explorer">Explorador →</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">🛰 Monitoreo satelital</div>
+    <h1>Indicadores ambientales<br>para <em>Viña del Mar</em></h1>
+    <p>Plataforma de visualización satelital de vegetación, temperatura superficial, calidad del aire y expansión urbana. Datos actualizados mensualmente desde Google Earth Engine.</p>
+    <div class="hero-actions">
+      <a href="explorer.html" class="btn-primary">Explorar mapas</a>
+      <a href="#indicadores" class="btn-secondary">Ver indicadores</a>
+    </div>
+  </section>
+
+  <section class="indicators" id="indicadores">
+    <div class="section-label">Indicadores</div>
+    <h2 class="section-title">¿Qué monitoreamos?</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🌿</div>
+        <h3>NDVI</h3>
+        <p>Índice de vegetación — cobertura y salud de áreas verdes urbanas</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌫</div>
+        <h3>AOD</h3>
+        <p>Profundidad óptica de aerosoles — partículas en la atmósfera</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💨</div>
+        <h3>NO₂</h3>
+        <p>Dióxido de nitrógeno — contaminación por tráfico e industria</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <h3>SO₂</h3>
+        <p>Dióxido de azufre — contaminación industrial y volcánica</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌡</div>
+        <h3>LST</h3>
+        <p>Temperatura superficial del terreno e islas de calor urbanas</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏙</div>
+        <h3>Huella Urbana</h3>
+        <p>Expansión de la ciudad detectada con radar e imágenes ópticas</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="sobre">
+    <div class="about-inner">
+      <h2>Sobre NotGeo</h2>
+      <p>NotGeo es una plataforma de acceso abierto que pone a disposición de la ciudadanía, académicos y gestores públicos indicadores ambientales satelitales actualizados para Viña del Mar.</p>
+      <p>Todos los datos se procesan automáticamente desde <strong>Google Earth Engine</strong> y se publican como mapas interactivos. El código fuente está disponible en <a href="https://github.com/notgeoch/Notgeo" style="color:#4caf7a">GitHub</a>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>NotGeo — Viña del Mar · <a href="https://github.com/notgeoch/Notgeo">GitHub</a> · Datos: Google Earth Engine</p>
+  </footer>
+
+</body>
+</html>
