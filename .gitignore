@@ -17,4 +17,14 @@ assets/data/raster/
 # excepto los productos finales del pipeline (~3-5 MB/mes)
 !assets/data/productos/**/*.tif
 
-# Tempo
+# Temporales
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ZIPs y backups
+*.zip
+*.bak
+descargas/
