@@ -12,7 +12,8 @@ def _zonas() -> ee.FeatureCollection:
         gj = json.load(f)
     feats = [
         ee.Feature(ee.Geometry(ft["geometry"]),
-                   {"zona": str(ft["properties"].get("GEOCODIGO", i))})
+                   {"zona": str(ft["properties"].get("COD_ZONA", i)),
+                    "distrito": str(ft["properties"].get("COD_DISTRITO", ""))})
         for i, ft in enumerate(gj["features"])
     ]
     return ee.FeatureCollection(feats)
@@ -36,9 +37,8 @@ def estadisticas(img: ee.Image, indice: str, anio: int, mes: int) -> Path:
     filas = []
     for ft in data["features"]:
         p = ft["properties"]
-        # Con 1 banda la columna se llama 'mean'; con varias, el nombre de la banda.
         valor = p.get(indice, p.get("mean"))
-        fila = {"zona": p.get("zona")}
+        fila = {"zona": p.get("zona"), "distrito": p.get("distrito")}
         fila[indice] = None if valor is None else round(valor, 4)
         if "frac_verde" in p and p["frac_verde"] is not None:
             fila["frac_verde"] = round(p["frac_verde"], 4)
@@ -48,5 +48,5 @@ def estadisticas(img: ee.Image, indice: str, anio: int, mes: int) -> Path:
     out.mkdir(parents=True, exist_ok=True)
     destino = out / f"{indice}_{anio}-{mes:02d}_zonas.json"
     destino.write_text(json.dumps(filas, ensure_ascii=False, indent=1))
-    print(f"  ✔ estadísticas zonales → {destino.name} ({len(filas)} zonas)")
+    print(f"  OK estadisticas zonales -> {destino.name} ({len(filas)} zonas)")
     return destino
