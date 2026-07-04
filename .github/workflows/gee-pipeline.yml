@@ -1,0 +1,51 @@
+name: Pipeline GEE
+
+on:
+  workflow_dispatch:
+    inputs:
+      index:
+        description: "Índice (ndvi, evi, savi, ndre, gndvi, ndwi)"
+        default: "ndvi"
+      start:
+        description: "Mes inicial YYYY-MM (vacío = mes pasado)"
+        default: ""
+      end:
+        description: "Mes final YYYY-MM (vacío = igual a start)"
+        default: ""
+  schedule:
+    - cron: "0 6 5 * *"   # día 5 de cada mes, 06:00 UTC → mes anterior
+
+permissions:
+  contents: write
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Ejecutar pipeline
+        working-directory: pipeline
+        env:
+          GEE_SERVICE_ACCOUNT_KEY: ${{ secrets.GEE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          ARGS="--index ${{ github.event.inputs.index || 'ndvi' }}"
+          if [ -n "${{ github.event.inputs.start }}" ]; then ARGS="$ARGS --start ${{ github.event.inputs.start }}"; fi
+          if [ -n "${{ github.event.inputs.end }}" ];   then ARGS="$ARGS --end ${{ github.event.inputs.end }}"; fi
+          python run.py $ARGS
+
+      - name: Commit de resultados
+        run: |
+          git config user.name  "notgeo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/data/productos
+          git diff --cached --quiet && echo "Sin cambios" && exit 0
+          git commit -m "productos: $(date -u +%Y-%m-%d) [skip ci]"
+          git push
