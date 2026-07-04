@@ -340,6 +340,113 @@
     footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--text); }
 
+    /* ── PROYECTO ── */
+    #proyecto {
+      position: relative; z-index: 10;
+      padding: 5rem 2rem;
+      max-width: 1300px; margin: 0 auto;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: .95rem; color: var(--muted); line-height: 1.75;
+      margin-bottom: 1.1rem;
+    }
+    .about-text strong { color: var(--text); font-weight: 600; }
+    .goal-list { display: grid; gap: .8rem; }
+    .goal-item {
+      display: grid; grid-template-columns: auto 1fr; gap: 1rem;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: .6rem; padding: 1rem 1.2rem;
+      transition: border-color .2s;
+    }
+    .goal-item:hover { border-color: var(--green); }
+    .goal-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem; color: var(--green); padding-top: .2rem;
+    }
+    .goal-item h4 { font-size: .92rem; font-weight: 700; margin-bottom: .25rem; }
+    .goal-item p { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── ÁREAS VERDES ── */
+    #verdes {
+      position: relative; z-index: 10;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 5rem 2rem;
+    }
+    .verdes-inner { max-width: 1300px; margin: 0 auto; }
+    .verdes-lead {
+      max-width: 760px; font-size: .95rem; color: var(--muted);
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .verdes-lead strong { color: var(--text); font-weight: 600; }
+
+    .veg-table-wrap {
+      border: 1px solid var(--border); border-radius: .6rem;
+      overflow-x: auto; background: var(--bg);
+    }
+    .veg-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    .veg-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); text-align: left;
+      padding: .9rem 1.2rem; border-bottom: 1px solid var(--border);
+    }
+    .veg-table td {
+      padding: .85rem 1.2rem; border-bottom: 1px solid var(--border);
+      font-size: .85rem; vertical-align: top;
+    }
+    .veg-table tr:last-child td { border-bottom: none; }
+    .veg-table tr { transition: background .15s; }
+    .veg-table tbody tr:hover { background: var(--surface); }
+    .veg-index { font-weight: 700; color: var(--green); white-space: nowrap; }
+    .veg-formula {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .74rem; color: var(--text); white-space: nowrap;
+    }
+    .veg-app { color: var(--muted); line-height: 1.5; }
+    .veg-note {
+      margin-top: 1.2rem; font-size: .8rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .veg-note em { color: var(--green); font-style: normal; }
+
+    /* ── SATÉLITES ── */
+    #satelites {
+      position: relative; z-index: 10;
+      padding: 5rem 2rem;
+      max-width: 1300px; margin: 0 auto;
+    }
+    .sat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .sat-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: .6rem; padding: 1.4rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .sat-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .sat-agency {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem; color: var(--blue);
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: .4rem;
+    }
+    .sat-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+    .sat-desc { font-size: .83rem; color: var(--muted); line-height: 1.55; margin-bottom: .9rem; }
+    .sat-specs {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .sat-spec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .63rem; color: var(--muted);
+      border: 1px solid var(--border);
+      padding: .15rem .5rem; border-radius: .25rem;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       #hero { grid-template-columns: 1fr; gap: 2rem; }
@@ -347,6 +454,7 @@
       .hero-panel { display: none; }
       .ind-card:nth-child(n) { grid-column: span 12; }
       .ind-card:nth-child(6) { display: block; }
+      .about-grid { grid-template-columns: 1fr; }
       .how-step { border-right: none; border-bottom: 1px solid var(--border); }
       .how-step:last-child { border-bottom: none; }
       .nav-right a { display: none; }
@@ -362,7 +470,10 @@
 <nav>
   <a href="#" class="logo">Not<em>Geo</em></a>
   <div class="nav-right">
+    <a href="#proyecto">Proyecto</a>
     <a href="#indicadores">Indicadores</a>
+    <a href="#verdes">Áreas verdes</a>
+    <a href="#satelites">Satélites</a>
     <a href="#how">Proceso</a>
     <a href="explorer.html">Explorador →</a>
     <button id="theme-btn">◑ tema</button>
@@ -437,7 +548,7 @@
     <span class="ticker-item">🟡 <strong>SO₂</strong> Azufre · Sentinel-5P</span>
     <span class="ticker-item">🌡 <strong>LST</strong> Temperatura · Landsat Thermal</span>
     <span class="ticker-item">🏙 <strong>Urbano</strong> Huella · Landsat / ESA</span>
-    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · ee-notgeoch</span>
+    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · notgeo-497602</span>
     <!-- duplicate for seamless loop -->
     <span class="ticker-item">🛰 <strong>NDVI</strong> Vegetación · Landsat 8/9</span>
     <span class="ticker-item">🌫 <strong>AOD</strong> Aerosoles · MODIS</span>
@@ -445,9 +556,70 @@
     <span class="ticker-item">🟡 <strong>SO₂</strong> Azufre · Sentinel-5P</span>
     <span class="ticker-item">🌡 <strong>LST</strong> Temperatura · Landsat Thermal</span>
     <span class="ticker-item">🏙 <strong>Urbano</strong> Huella · Landsat / ESA</span>
-    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · ee-notgeoch</span>
+    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · notgeo-497602</span>
   </div>
 </div>
+
+<!-- PROYECTO -->
+<section id="proyecto">
+  <div class="section-eyebrow">// el proyecto</div>
+  <h2 class="section-h2">Por qué monitoreamos Viña del Mar</h2>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        <strong>NotGeo</strong> es una plataforma independiente de monitoreo ambiental satelital
+        enfocada en la comuna de <strong>Viña del Mar</strong>. Usando observación de la Tierra
+        (EO) y <strong>Google Earth Engine</strong>, transforma décadas de imágenes satelitales
+        en indicadores claros y abiertos sobre el estado del medio ambiente urbano.
+      </p>
+      <p>
+        La ciudad enfrenta presiones crecientes: <strong>expansión urbana</strong> sobre quebradas
+        y laderas, <strong>islas de calor</strong>, déficit de áreas verdes por habitante, y la
+        recuperación del territorio tras el <strong>megaincendio de febrero de 2024</strong> —
+        uno de los más destructivos de la historia de Chile. Decidir bien exige datos actualizados,
+        comparables en el tiempo y accesibles para cualquiera.
+      </p>
+      <p>
+        Los satélites ofrecen exactamente eso: pasan sobre la ciudad cada pocos días desde hace
+        más de 40 años, midiendo vegetación, temperatura, aire y crecimiento urbano con el mismo
+        estándar. NotGeo procesa ese archivo y lo publica sin costo, sin registro y con
+        metodología abierta.
+      </p>
+    </div>
+
+    <div class="goal-list">
+      <div class="goal-item">
+        <span class="goal-num">01</span>
+        <div>
+          <h4>Indicadores urbano-ambientales</h4>
+          <p>Calcular series mensuales y anuales de vegetación, temperatura, calidad del aire y huella urbana a escala de barrio.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <span class="goal-num">02</span>
+        <div>
+          <h4>Apoyo a la investigación y gestión</h4>
+          <p>Entregar insumos para tesis, estudios ambientales y decisiones municipales: dónde plantar, dónde mitigar calor, dónde proteger.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <span class="goal-num">03</span>
+        <div>
+          <h4>Datos abiertos y reproducibles</h4>
+          <p>Todo el pipeline es código abierto en GitHub: de la imagen cruda al mapa final, cada paso es verificable.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <span class="goal-num">04</span>
+        <div>
+          <h4>Escalar en la región</h4>
+          <p>La metodología nace en Viña del Mar, pero está diseñada para replicarse en cualquier comuna de la región de Valparaíso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- INDICADORES -->
 <section id="indicadores">
@@ -509,6 +681,177 @@
           naturales han sido reemplazadas por infraestructura urbana.
         </div>
         <span class="ind-source">Landsat multitemporal · ESA WorldCover</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ÁREAS VERDES -->
+<section id="verdes">
+  <div class="verdes-inner">
+    <div class="section-eyebrow">// primer indicador en profundidad</div>
+    <h2 class="section-h2">Áreas verdes: por dónde partimos</h2>
+
+    <p class="verdes-lead">
+      Las áreas verdes son el primer indicador que NotGeo desarrolla en profundidad.
+      Viña del Mar combina <strong>quebradas con vegetación nativa</strong>, parques urbanos
+      históricos y laderas afectadas por el <strong>megaincendio de febrero de 2024</strong>.
+      Con teledetección medimos tres cosas: <strong>cuánta</strong> vegetación hay y cómo se
+      distribuye por barrio, <strong>qué tan sana</strong> está (vigor, estrés hídrico), y
+      <strong>cómo cambia</strong> en el tiempo — estacionalidad, sequía y recuperación post-incendio.
+      La superficie vegetal por habitante se contrasta con el estándar de referencia de la
+      <strong>OMS (9 m²/hab)</strong> a escala de zona censal.
+    </p>
+
+    <p class="verdes-lead">
+      Para eso no basta un solo índice: cada índice espectral responde a una pregunta distinta.
+      Partimos con <strong>NDVI</strong> como base histórica (40+ años comparables con Landsat)
+      y sumaremos los demás según el análisis:
+    </p>
+
+    <div class="veg-table-wrap">
+      <table class="veg-table">
+        <thead>
+          <tr>
+            <th>Índice</th>
+            <th>Fórmula</th>
+            <th>Principal aplicación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="veg-index">NDVI</td>
+            <td class="veg-formula">(NIR − Rojo) / (NIR + Rojo)</td>
+            <td class="veg-app">Vigor y cobertura vegetal general. La base de la serie histórica de NotGeo.</td>
+          </tr>
+          <tr>
+            <td class="veg-index">EVI</td>
+            <td class="veg-formula">2.5 × (NIR − Rojo) / (NIR + 6×Rojo − 7.5×Azul + 1)</td>
+            <td class="veg-app">Bosques y vegetación densa; reduce efectos atmosféricos y saturación.</td>
+          </tr>
+          <tr>
+            <td class="veg-index">SAVI</td>
+            <td class="veg-formula">((NIR − Rojo) / (NIR + Rojo + L)) × (1 + L)</td>
+            <td class="veg-app">Vegetación escasa; minimiza la influencia del suelo. Clave en laderas quemadas en recuperación.</td>
+          </tr>
+          <tr>
+            <td class="veg-index">NDRE</td>
+            <td class="veg-formula">(NIR − Red Edge) / (NIR + Red Edge)</td>
+            <td class="veg-app">Contenido de clorofila y nitrógeno; muy útil en vegetación desarrollada. Requiere banda red-edge (Sentinel-2).</td>
+          </tr>
+          <tr>
+            <td class="veg-index">GNDVI</td>
+            <td class="veg-formula">(NIR − Verde) / (NIR + Verde)</td>
+            <td class="veg-app">Sensible a la clorofila y al estado nutricional de la vegetación.</td>
+          </tr>
+          <tr>
+            <td class="veg-index">NDWI</td>
+            <td class="veg-formula">(NIR − SWIR) / (NIR + SWIR)</td>
+            <td class="veg-app">Contenido de agua en la vegetación y detección de estrés hídrico.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="veg-note">
+      <em>L</em> = factor de corrección de suelo (típicamente 0.5) ·
+      <em>NIR</em> = infrarrojo cercano · <em>SWIR</em> = infrarrojo de onda corta ·
+      Sensores: Sentinel-2 (10 m, incluye red-edge) y Landsat 8/9 (30 m, serie desde 1984).
+    </p>
+  </div>
+</section>
+
+<!-- SATÉLITES -->
+<section id="satelites">
+  <div class="section-eyebrow">// las fuentes</div>
+  <h2 class="section-h2">Satélites que usamos</h2>
+
+  <div class="sat-grid">
+
+    <div class="sat-card">
+      <div class="sat-agency">NASA / USGS</div>
+      <div class="sat-name">Landsat 8 y 9</div>
+      <div class="sat-desc">
+        El archivo continuo más largo de observación terrestre (desde 1984 con sensores
+        comparables). Base de las series históricas de vegetación, temperatura superficial
+        y huella urbana.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">30 m óptico</span>
+        <span class="sat-spec">100 m térmico</span>
+        <span class="sat-spec">revisita 8 días (combinados)</span>
+      </div>
+    </div>
+
+    <div class="sat-card">
+      <div class="sat-agency">ESA · Copernicus</div>
+      <div class="sat-name">Sentinel-2 A/B/C</div>
+      <div class="sat-desc">
+        Multiespectral de alta resolución con bandas red-edge, ideales para índices de
+        clorofila (NDRE) y detalle a escala de manzana. El caballo de batalla del
+        indicador de áreas verdes.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">10–20 m</span>
+        <span class="sat-spec">13 bandas</span>
+        <span class="sat-spec">revisita 5 días</span>
+      </div>
+    </div>
+
+    <div class="sat-card">
+      <div class="sat-agency">ESA · Copernicus</div>
+      <div class="sat-name">Sentinel-5P (TROPOMI)</div>
+      <div class="sat-desc">
+        Espectrómetro atmosférico que mide gases traza: NO₂ de tráfico e industria,
+        SO₂ de quemas y fundiciones. Cobertura global diaria.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">~5.5 km</span>
+        <span class="sat-spec">NO₂ · SO₂ · O₃ · CO</span>
+        <span class="sat-spec">diario</span>
+      </div>
+    </div>
+
+    <div class="sat-card">
+      <div class="sat-agency">NASA</div>
+      <div class="sat-name">MODIS (Terra y Aqua)</div>
+      <div class="sat-desc">
+        Dos pasadas diarias desde el año 2000. Fuente del espesor óptico de aerosoles (AOD),
+        indicador regional de material particulado en suspensión.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">250 m – 1 km</span>
+        <span class="sat-spec">AOD · LST</span>
+        <span class="sat-spec">2× al día</span>
+      </div>
+    </div>
+
+    <div class="sat-card">
+      <div class="sat-agency">NOAA / NASA</div>
+      <div class="sat-name">VIIRS (Suomi NPP)</div>
+      <div class="sat-desc">
+        Banda día/noche que registra la luminosidad nocturna: actividad urbana,
+        expansión de la ciudad y consumo lumínico visto desde el espacio.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">~500 m</span>
+        <span class="sat-spec">luces nocturnas</span>
+        <span class="sat-spec">mensual</span>
+      </div>
+    </div>
+
+    <div class="sat-card">
+      <div class="sat-agency">ESA</div>
+      <div class="sat-name">WorldCover / Dynamic World</div>
+      <div class="sat-desc">
+        Mapas globales de cobertura de suelo derivados de Sentinel-1/2 con IA.
+        Apoyan la clasificación de huella urbana y la validación de áreas verdes.
+      </div>
+      <div class="sat-specs">
+        <span class="sat-spec">10 m</span>
+        <span class="sat-spec">11 clases</span>
+        <span class="sat-spec">anual / casi tiempo real</span>
       </div>
     </div>
 
