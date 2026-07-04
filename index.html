@@ -1,211 +1,635 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NotGeo — Viña del Mar</title>
-  <meta name="description" content="NotGeo — Plataforma de monitoreo ambiental satelital para Viña del Mar. Indicadores de vegetación, temperatura, calidad del aire y huella urbana." />
+  <meta name="description" content="Monitoreo ambiental satelital de Viña del Mar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
+  <style>
+    /* ── TOKENS ── */
     :root {
-      --green:   #2d7a4f;
-      --green-light: #4caf7a;
-      --dark:    #0f1a13;
-      --gray:    #6b7280;
-      --bg:      #f8faf8;
-      --white:   #ffffff;
+      --bg:       #080c18;
+      --bg2:      #0d1225;
+      --surface:  rgba(255,255,255,0.04);
+      --border:   rgba(255,255,255,0.07);
+      --text:     #dce3f5;
+      --muted:    #6b7899;
+      --green:    #39e8a0;
+      --blue:     #4fa3e0;
+      --purple:   #9b7ff8;
+      --red:      #ff6b6b;
+      --yellow:   #ffd166;
+    }
+    [data-theme="light"] {
+      --bg:       #f5f7ff;
+      --bg2:      #eaedfc;
+      --surface:  rgba(0,0,0,0.04);
+      --border:   rgba(0,0,0,0.09);
+      --text:     #111827;
+      --muted:    #6b7280;
+      --green:    #0a7a4e;
+      --blue:     #1a56a0;
+      --purple:   #6038c8;
+      --red:      #c0392b;
+      --yellow:   #b07d00;
     }
 
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       background: var(--bg);
-      color: var(--dark);
-      min-height: 100vh;
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background .35s, color .35s;
+    }
+
+    /* ── CANVAS + SATELLITE ── */
+    #starfield {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    #satellite {
+      position: fixed; font-size: 1.6rem; z-index: 1;
+      pointer-events: none; opacity: 0;
+      filter: drop-shadow(0 0 6px var(--green));
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e5e7eb;
+      padding: .75rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,24,.75);
+      backdrop-filter: blur(20px);
+      transition: background .35s;
     }
-    .nav-brand { font-size: 1.4rem; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
-    .nav-brand span { color: var(--gray); font-weight: 300; font-size: 0.9rem; margin-left: 0.4rem; }
-    .nav-links a {
-      margin-left: 1.5rem; text-decoration: none; color: var(--gray);
-      font-size: 0.9rem; font-weight: 500; transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--green); }
-    .btn-explorer {
-      background: var(--green); color: white !important;
-      padding: 0.45rem 1.1rem; border-radius: 6px;
-    }
-    .btn-explorer:hover { background: var(--green-light) !important; }
+    [data-theme="light"] nav { background: rgba(245,247,255,.82); }
 
-    /* ── HERO ── */
-    .hero {
+    .logo {
+      font-weight: 800; font-size: 1.1rem; letter-spacing: -.03em;
+      color: var(--text); text-decoration: none;
+    }
+    .logo em { color: var(--green); font-style: normal; }
+
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-right a {
+      font-size: .82rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-right a:hover { color: var(--text); }
+
+    #theme-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); padding: .3rem .7rem; border-radius: .4rem;
+      cursor: pointer; font-size: .8rem; font-family: inherit;
+      transition: border-color .2s, color .2s;
+    }
+    #theme-btn:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── HERO — SPLIT LAYOUT ── */
+    #hero {
+      position: relative; z-index: 10;
       min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 7rem 1.5rem 4rem;
-      background: linear-gradient(160deg, #e8f5ee 0%, #f8faf8 60%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 2rem 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      gap: 3rem;
     }
-    .hero-badge {
-      display: inline-block; background: #dcf0e6; color: var(--green);
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 99px;
+
+    .hero-left { padding-right: 2rem; }
+
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; color: var(--green);
+      border: 1px solid rgba(57,232,160,.25);
+      padding: .25rem .7rem; border-radius: .3rem;
       margin-bottom: 1.5rem;
+      letter-spacing: .04em;
     }
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700;
-      line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem;
+    .hero-chip::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 1.6s infinite;
     }
-    .hero h1 em { color: var(--green); font-style: normal; }
-    .hero p {
-      max-width: 560px; color: var(--gray); font-size: 1.05rem;
-      line-height: 1.6; margin-bottom: 2.5rem;
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: .3; }
     }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .hero-h1 {
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -.04em;
+      margin-bottom: 1.2rem;
+    }
+    .hero-h1 .city {
+      display: block;
+      color: var(--green);
+    }
+
+    .hero-desc {
+      font-size: 1rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 2rem; max-width: 420px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+    }
+
+    .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
     .btn-primary {
-      background: var(--green); color: white; text-decoration: none;
-      padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 600;
-      font-size: 1rem; transition: background .2s, transform .15s;
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--green); color: #060b14;
+      font-weight: 700; font-size: .9rem; font-family: inherit;
+      padding: .7rem 1.5rem; border-radius: .4rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: opacity .2s, transform .15s;
     }
-    .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
-    .btn-secondary {
-      background: white; color: var(--dark); text-decoration: none;
-      padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 500;
-      font-size: 1rem; border: 1px solid #d1d5db; transition: border-color .2s;
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .4rem;
+      border: 1px solid var(--border); color: var(--muted);
+      font-weight: 500; font-size: .9rem; font-family: inherit;
+      padding: .7rem 1.5rem; border-radius: .4rem;
+      text-decoration: none; background: none;
+      transition: border-color .2s, color .2s;
     }
-    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+    /* ── HERO RIGHT — DATA PANEL ── */
+    .hero-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: .75rem;
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.2rem; padding-bottom: .8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-title { font-size: .7rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+    .panel-date { color: var(--green); font-size: .7rem; }
+
+    .panel-row {
+      display: grid; grid-template-columns: 1fr auto auto;
+      align-items: center; gap: .8rem;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-row:last-child { border-bottom: none; }
+
+    .panel-indicator { color: var(--text); font-size: .8rem; font-weight: 500; }
+    .panel-value { color: var(--muted); font-size: .75rem; }
+    .panel-bar-wrap {
+      width: 70px; height: 5px; border-radius: 3px;
+      background: var(--surface); overflow: hidden;
+    }
+    .panel-bar {
+      height: 100%; border-radius: 3px;
+      animation: grow .8s ease both;
+    }
+    @keyframes grow { from { width: 0; } }
+
+    .dot {
+      display: inline-block; width: 7px; height: 7px;
+      border-radius: 50%; margin-right: .4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── TICKER ── */
+    #ticker {
+      position: relative; z-index: 10;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      overflow: hidden; padding: .6rem 0;
+    }
+    .ticker-track {
+      display: flex; gap: 3rem;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; color: var(--muted);
+    }
+    .ticker-item strong { color: var(--text); }
 
     /* ── INDICADORES ── */
-    .indicators {
-      padding: 5rem 1.5rem;
-      max-width: 1100px; margin: 0 auto;
+    #indicadores {
+      position: relative; z-index: 10;
+      padding: 5rem 2rem;
+      max-width: 1300px; margin: 0 auto;
     }
-    .section-label {
-      text-align: center; font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 0.8rem;
-    }
-    .section-title {
-      text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
-    }
-    .card {
-      background: white; border-radius: 12px; padding: 1.5rem;
-      border: 1px solid #e5e7eb; transition: box-shadow .2s, transform .15s;
-    }
-    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); transform: translateY(-2px); }
-    .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .card p { font-size: 0.82rem; color: var(--gray); line-height: 1.4; }
 
-    /* ── SOBRE ── */
-    .about {
-      background: var(--dark); color: white;
-      padding: 5rem 1.5rem;
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: .6rem;
     }
-    .about-inner { max-width: 800px; margin: 0 auto; text-align: center; }
-    .about h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
-    .about p { color: #9ca3af; line-height: 1.7; font-size: 1rem; margin-bottom: 1rem; }
-    .about p:last-child { margin-bottom: 0; }
+    .section-h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; letter-spacing: -.03em;
+      margin-bottom: 3rem;
+    }
+
+    /* Asymmetric grid */
+    .ind-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: auto;
+      gap: 1rem;
+    }
+
+    .ind-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: .6rem;
+      padding: 1.4rem;
+      transition: border-color .2s, transform .2s;
+      cursor: default;
+    }
+    .ind-card:hover {
+      border-color: var(--accent-local, var(--green));
+      transform: translateY(-2px);
+    }
+
+    /* column spans */
+    .ind-card:nth-child(1) { grid-column: span 5; }
+    .ind-card:nth-child(2) { grid-column: span 7; }
+    .ind-card:nth-child(3) { grid-column: span 4; }
+    .ind-card:nth-child(4) { grid-column: span 4; }
+    .ind-card:nth-child(5) { grid-column: span 4; }
+    .ind-card:nth-child(6) { grid-column: span 12; display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; align-items: center; }
+
+    .ind-icon { font-size: 1.6rem; margin-bottom: .8rem; }
+    .ind-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .68rem; color: var(--accent-local, var(--green));
+      letter-spacing: .06em; text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+    .ind-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+    .ind-desc { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+    .ind-source {
+      display: inline-block; margin-top: .8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem; color: var(--muted);
+      border: 1px solid var(--border);
+      padding: .15rem .5rem; border-radius: .25rem;
+    }
+
+    /* ── HOW ── */
+    #how {
+      position: relative; z-index: 10;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 5rem 2rem;
+    }
+    .how-inner { max-width: 1300px; margin: 0 auto; }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: .6rem;
+      overflow: hidden;
+    }
+    .how-step {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .how-step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem; color: var(--muted);
+      margin-bottom: 1rem; letter-spacing: .06em;
+    }
+    .step-h { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+    .step-p { font-size: .84rem; color: var(--muted); line-height: 1.55; }
 
     /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 2rem;
-      font-size: 0.82rem; color: var(--gray);
-      border-top: 1px solid #e5e7eb;
+      position: relative; z-index: 10;
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .8rem;
+      font-size: .78rem; color: var(--muted);
+      background: var(--bg);
     }
-    footer a { color: var(--green); text-decoration: none; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
 
-    @media (max-width: 600px) {
-      nav { padding: 0.8rem 1rem; }
-      .nav-links .btn-explorer { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
-      .nav-links a:not(.btn-explorer) { display: none; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-left { padding-right: 0; }
+      .hero-panel { display: none; }
+      .ind-card:nth-child(n) { grid-column: span 12; }
+      .ind-card:nth-child(6) { display: block; }
+      .how-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .how-step:last-child { border-bottom: none; }
+      .nav-right a { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="nav-brand">NotGeo <span>Viña del Mar</span></div>
-    <div class="nav-links">
-      <a href="#indicadores">Indicadores</a>
-      <a href="#sobre">Sobre</a>
-      <a href="explorer.html" class="btn-explorer">Explorador →</a>
-    </div>
-  </nav>
+<canvas id="starfield"></canvas>
+<div id="satellite">🛸</div>
 
-  <section class="hero">
-    <div class="hero-badge">🛰 Monitoreo satelital</div>
-    <h1>Indicadores ambientales<br>para <em>Viña del Mar</em></h1>
-    <p>Plataforma de visualización satelital de vegetación, temperatura superficial, calidad del aire y expansión urbana. Datos actualizados mensualmente desde Google Earth Engine.</p>
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Not<em>Geo</em></a>
+  <div class="nav-right">
+    <a href="#indicadores">Indicadores</a>
+    <a href="#how">Proceso</a>
+    <a href="explorer.html">Explorador →</a>
+    <button id="theme-btn">◑ tema</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-chip">sistema activo · actualización mensual</div>
+    <h1 class="hero-h1">
+      Medio ambiente
+      <span class="city">Viña del Mar</span>
+      desde el espacio.
+    </h1>
+    <p class="hero-desc">
+      Indicadores ambientales satelitales procesados con Google Earth Engine.
+      Vegetación, temperatura, calidad del aire y más — datos abiertos para todos.
+    </p>
     <div class="hero-actions">
-      <a href="explorer.html" class="btn-primary">Explorar mapas</a>
-      <a href="#indicadores" class="btn-secondary">Ver indicadores</a>
+      <a href="explorer.html" class="btn-primary">Abrir explorador →</a>
+      <a href="#indicadores" class="btn-ghost">Ver indicadores</a>
     </div>
-  </section>
+  </div>
 
-  <section class="indicators" id="indicadores">
-    <div class="section-label">Indicadores</div>
-    <h2 class="section-title">¿Qué monitoreamos?</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🌿</div>
-        <h3>NDVI</h3>
-        <p>Índice de vegetación — cobertura y salud de áreas verdes urbanas</p>
+  <!-- Data panel (decorative) -->
+  <div class="hero-panel">
+    <div class="panel-header">
+      <span class="panel-title">Indicadores · Mayo 2025</span>
+      <span class="panel-date">● En línea</span>
+    </div>
+
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#39e8a0"></span>NDVI</span>
+      <span class="panel-value">0.41</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:65%;background:#39e8a0"></div></div>
+    </div>
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#9b7ff8"></span>AOD</span>
+      <span class="panel-value">0.18</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:28%;background:#9b7ff8"></div></div>
+    </div>
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#ff6b6b"></span>NO₂</span>
+      <span class="panel-value">42.3 μmol</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:55%;background:#ff6b6b"></div></div>
+    </div>
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#ffd166"></span>SO₂</span>
+      <span class="panel-value">0.07 DU</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:20%;background:#ffd166"></div></div>
+    </div>
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#4fa3e0"></span>LST</span>
+      <span class="panel-value">22.4 °C</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:72%;background:#4fa3e0"></div></div>
+    </div>
+    <div class="panel-row">
+      <span class="panel-indicator"><span class="dot" style="background:#c8a8ff"></span>Urbano</span>
+      <span class="panel-value">68 km²</span>
+      <div class="panel-bar-wrap"><div class="panel-bar" style="width:80%;background:#c8a8ff"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div id="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">🛰 <strong>NDVI</strong> Vegetación · Landsat 8/9</span>
+    <span class="ticker-item">🌫 <strong>AOD</strong> Aerosoles · MODIS</span>
+    <span class="ticker-item">🟤 <strong>NO₂</strong> Nitrógeno · Sentinel-5P</span>
+    <span class="ticker-item">🟡 <strong>SO₂</strong> Azufre · Sentinel-5P</span>
+    <span class="ticker-item">🌡 <strong>LST</strong> Temperatura · Landsat Thermal</span>
+    <span class="ticker-item">🏙 <strong>Urbano</strong> Huella · Landsat / ESA</span>
+    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · ee-notgeoch</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">🛰 <strong>NDVI</strong> Vegetación · Landsat 8/9</span>
+    <span class="ticker-item">🌫 <strong>AOD</strong> Aerosoles · MODIS</span>
+    <span class="ticker-item">🟤 <strong>NO₂</strong> Nitrógeno · Sentinel-5P</span>
+    <span class="ticker-item">🟡 <strong>SO₂</strong> Azufre · Sentinel-5P</span>
+    <span class="ticker-item">🌡 <strong>LST</strong> Temperatura · Landsat Thermal</span>
+    <span class="ticker-item">🏙 <strong>Urbano</strong> Huella · Landsat / ESA</span>
+    <span class="ticker-item">📡 <strong>GEE</strong> Google Earth Engine · ee-notgeoch</span>
+  </div>
+</div>
+
+<!-- INDICADORES -->
+<section id="indicadores">
+  <div class="section-eyebrow">// indicadores ambientales</div>
+  <h2 class="section-h2">Qué monitoreamos</h2>
+
+  <div class="ind-grid">
+
+    <div class="ind-card" style="--accent-local:#39e8a0">
+      <div class="ind-icon">🌿</div>
+      <div class="ind-code">NDVI</div>
+      <div class="ind-name">Vegetación</div>
+      <div class="ind-desc">Densidad y salud de cobertura vegetal en la ciudad y laderos del cerro.</div>
+      <span class="ind-source">Landsat 8/9 · 30m</span>
+    </div>
+
+    <div class="ind-card" style="--accent-local:#9b7ff8">
+      <div class="ind-icon">🌫️</div>
+      <div class="ind-code">AOD</div>
+      <div class="ind-name">Aerosoles y polvo en suspensión</div>
+      <div class="ind-desc">Mide partículas finas en la atmósfera: polvo, humo, smog. Indicador directo de calidad del aire a escala regional. Útil para correlacionar con eventos industriales o incendios.</div>
+      <span class="ind-source">MODIS / MERRA-2</span>
+    </div>
+
+    <div class="ind-card" style="--accent-local:#ff6b6b">
+      <div class="ind-icon">🟤</div>
+      <div class="ind-code">NO₂</div>
+      <div class="ind-name">Dióxido de nitrógeno</div>
+      <div class="ind-desc">Emisiones vehiculares e industriales. Contaminante clave en zonas urbanas.</div>
+      <span class="ind-source">Sentinel-5P</span>
+    </div>
+
+    <div class="ind-card" style="--accent-local:#ffd166">
+      <div class="ind-icon">🟡</div>
+      <div class="ind-code">SO₂</div>
+      <div class="ind-name">Dióxido de azufre</div>
+      <div class="ind-desc">Asociado a quemas e industria. Precursor de lluvia ácida.</div>
+      <span class="ind-source">Sentinel-5P</span>
+    </div>
+
+    <div class="ind-card" style="--accent-local:#4fa3e0">
+      <div class="ind-icon">🌡️</div>
+      <div class="ind-code">LST</div>
+      <div class="ind-name">Temperatura superficial</div>
+      <div class="ind-desc">Revela islas de calor urbanas y contraste con zonas verdes.</div>
+      <span class="ind-source">Landsat Thermal</span>
+    </div>
+
+    <div class="ind-card" style="--accent-local:#c8a8ff">
+      <div>
+        <div class="ind-icon">🏙️</div>
+        <div class="ind-code">Huella Urbana</div>
+        <div class="ind-name">Expansión de la ciudad</div>
       </div>
-      <div class="card">
-        <div class="card-icon">🌫</div>
-        <h3>AOD</h3>
-        <p>Profundidad óptica de aerosoles — partículas en la atmósfera</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">💨</div>
-        <h3>NO₂</h3>
-        <p>Dióxido de nitrógeno — contaminación por tráfico e industria</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏭</div>
-        <h3>SO₂</h3>
-        <p>Dióxido de azufre — contaminación industrial y volcánica</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌡</div>
-        <h3>LST</h3>
-        <p>Temperatura superficial del terreno e islas de calor urbanas</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏙</div>
-        <h3>Huella Urbana</h3>
-        <p>Expansión de la ciudad detectada con radar e imágenes ópticas</p>
+      <div>
+        <div class="ind-desc">
+          Clasifica el suelo entre área construida y no construida a lo largo del tiempo.
+          Permite ver cómo Viña del Mar ha crecido en las últimas décadas y qué zonas
+          naturales han sido reemplazadas por infraestructura urbana.
+        </div>
+        <span class="ind-source">Landsat multitemporal · ESA WorldCover</span>
       </div>
     </div>
-  </section>
 
-  <section class="about" id="sobre">
-    <div class="about-inner">
-      <h2>Sobre NotGeo</h2>
-      <p>NotGeo es una plataforma de acceso abierto que pone a disposición de la ciudadanía, académicos y gestores públicos indicadores ambientales satelitales actualizados para Viña del Mar.</p>
-      <p>Todos los datos se procesan automáticamente desde <strong>Google Earth Engine</strong> y se publican como mapas interactivos. El código fuente está disponible en <a href="https://github.com/notgeoch/Notgeo" style="color:#4caf7a">GitHub</a>.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">// proceso</div>
+    <h2 class="section-h2" style="margin-bottom:2rem">Cómo llegan los datos</h2>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-num">01 / captura</div>
+        <div class="step-h">Satélites en órbita</div>
+        <p class="step-p">NASA (Landsat, MODIS) y ESA (Sentinel) fotografían Viña del Mar cada pocos días desde 700 km de altura.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02 / procesamiento</div>
+        <div class="step-h">Google Earth Engine</div>
+        <p class="step-p">Corrección atmosférica, filtro de nubes y cálculo de indicadores en la nube. Sin descargar nada.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03 / exportación</div>
+        <div class="step-h">Capas georreferenciadas</div>
+        <p class="step-p">Los resultados se exportan como rasters y vectores listos para visualizar en el explorador.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">04 / acceso libre</div>
+        <div class="step-h">Sin registro, sin costo</div>
+        <p class="step-p">Datos abiertos para ciudadanos, investigadores y organismos públicos de la región de Valparaíso.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>NotGeo — Viña del Mar · <a href="https://github.com/notgeoch/Notgeo">GitHub</a> · Datos: Google Earth Engine</p>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <span><strong>NotGeo</strong> · Viña del Mar, Chile</span>
+  <span>Datos: NASA · ESA · <a href="https://earthengine.google.com/" target="_blank">Google Earth Engine</a></span>
+  <a href="https://github.com/notgeoch/Notgeo" target="_blank">GitHub ↗</a>
+</footer>
 
+<script>
+/* ── THEME ── */
+(function(){
+  const btn = document.getElementById('theme-btn');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('ng-theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('ng-theme', next);
+  });
+})();
+
+/* ── STARFIELD ── */
+(function(){
+  const c = document.getElementById('starfield');
+  const ctx = c.getContext('2d');
+  let W, H, stars = [];
+
+  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+
+  function init(){
+    stars = Array.from({length: 180}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*1.2+.2,
+      a: Math.random(), da: (Math.random()*.006+.001) * (Math.random()>.5?1:-1)
+    }));
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    const light = document.documentElement.getAttribute('data-theme')==='light';
+    stars.forEach(s => {
+      s.a += s.da;
+      if(s.a>1||s.a<.05) s.da*=-1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = light
+        ? `rgba(30,50,120,${(s.a*.4).toFixed(2)})`
+        : `rgba(255,255,255,${s.a.toFixed(2)})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', () => { resize(); init(); });
+  resize(); init(); frame();
+})();
+
+/* ── SATELLITE ── */
+(function(){
+  const el = document.getElementById('satellite');
+  const list = ['🛸','🚀','☄️','🌙','⭐','🔭'];
+  let busy = false;
+
+  function fly(){
+    if(busy) return;
+    busy = true;
+    el.textContent = list[Math.floor(Math.random()*list.length)];
+    const rtl = Math.random()>.65;
+    const y   = 8 + Math.random()*75;
+    const dur = 7000 + Math.random()*5000;
+    el.style.cssText = `top:${y}vh;left:${rtl?'108vw':'-7vw'};transform:scaleX(${rtl?-1:1});opacity:0;transition:none;font-size:1.6rem;position:fixed;z-index:1;pointer-events:none;filter:drop-shadow(0 0 6px #39e8a0)`;
+    el.getBoundingClientRect();
+    el.style.transition = `left ${dur}ms linear, opacity .4s`;
+    el.style.opacity = '1';
+    el.style.left = rtl ? '-7vw' : '108vw';
+    setTimeout(() => {
+      el.style.opacity = '0';
+      setTimeout(() => { busy = false; schedule(); }, 500);
+    }, dur-500);
+  }
+
+  function schedule(){ setTimeout(fly, 18000 + Math.random()*42000); }
+  setTimeout(fly, 4000 + Math.random()*8000);
+})();
+</script>
 </body>
 </html>
