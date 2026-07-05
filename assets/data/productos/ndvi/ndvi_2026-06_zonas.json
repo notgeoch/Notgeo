@@ -1,576 +1,691 @@
 [
  {
-  "zona": "0",
+  "zona": "11",
+  "distrito": "4",
   "ndvi": 0.2349,
   "frac_verde": 0.1694
  },
  {
   "zona": "1",
+  "distrito": "4",
   "ndvi": 0.4916,
   "frac_verde": 0.611
  },
  {
-  "zona": "2",
+  "zona": "8",
+  "distrito": "4",
   "ndvi": 0.5132,
   "frac_verde": 0.6422
  },
  {
-  "zona": "3",
+  "zona": "1",
+  "distrito": "17",
   "ndvi": 0.2791,
   "frac_verde": 0.2394
  },
  {
-  "zona": "4",
+  "zona": "3",
+  "distrito": "4",
   "ndvi": 0.5684,
   "frac_verde": 0.7368
  },
  {
-  "zona": "5",
+  "zona": "9",
+  "distrito": "4",
   "ndvi": 0.3754,
   "frac_verde": 0.4039
  },
  {
-  "zona": "6",
+  "zona": "2",
+  "distrito": "4",
   "ndvi": 0.4021,
   "frac_verde": 0.4092
  },
  {
-  "zona": "7",
+  "zona": "4",
+  "distrito": "4",
   "ndvi": 0.4189,
   "frac_verde": 0.5112
  },
  {
-  "zona": "8",
+  "zona": "2",
+  "distrito": "12",
   "ndvi": 0.458,
   "frac_verde": 0.6164
  },
  {
-  "zona": "9",
+  "zona": "3",
+  "distrito": "14",
   "ndvi": 0.3284,
   "frac_verde": 0.3142
  },
  {
-  "zona": "10",
+  "zona": "1",
+  "distrito": "12",
   "ndvi": 0.4937,
   "frac_verde": 0.6652
  },
  {
-  "zona": "11",
+  "zona": "3",
+  "distrito": "12",
   "ndvi": 0.5307,
   "frac_verde": 0.6938
  },
  {
-  "zona": "12",
+  "zona": "1",
+  "distrito": "13",
   "ndvi": 0.3595,
   "frac_verde": 0.4109
  },
  {
   "zona": "13",
+  "distrito": "17",
   "ndvi": 0.2498,
   "frac_verde": 0.1753
  },
  {
-  "zona": "14",
+  "zona": "1",
+  "distrito": "14",
   "ndvi": 0.4991,
   "frac_verde": 0.6307
  },
  {
-  "zona": "15",
+  "zona": "7",
+  "distrito": "17",
   "ndvi": 0.1972,
   "frac_verde": 0.0808
  },
  {
-  "zona": "16",
+  "zona": "5",
+  "distrito": "17",
   "ndvi": 0.1738,
   "frac_verde": 0.0468
  },
  {
-  "zona": "17",
+  "zona": "4",
+  "distrito": "17",
   "ndvi": 0.1926,
   "frac_verde": 0.0845
  },
  {
-  "zona": "18",
+  "zona": "2",
+  "distrito": "5",
   "ndvi": 0.2002,
   "frac_verde": 0.0984
  },
  {
-  "zona": "19",
+  "zona": "8",
+  "distrito": "17",
   "ndvi": 0.237,
   "frac_verde": 0.1965
  },
  {
-  "zona": "20",
+  "zona": "12",
+  "distrito": "17",
   "ndvi": 0.2495,
   "frac_verde": 0.2066
  },
  {
-  "zona": "21",
+  "zona": "2",
+  "distrito": "13",
   "ndvi": 0.155,
   "frac_verde": 0.0371
  },
  {
-  "zona": "22",
+  "zona": "11",
+  "distrito": "17",
   "ndvi": 0.175,
   "frac_verde": 0.0615
  },
  {
-  "zona": "23",
+  "zona": "3",
+  "distrito": "17",
   "ndvi": 0.2005,
   "frac_verde": 0.0977
  },
  {
-  "zona": "24",
+  "zona": "10",
+  "distrito": "17",
   "ndvi": 0.3183,
   "frac_verde": 0.2845
  },
  {
-  "zona": "25",
+  "zona": "3",
+  "distrito": "13",
   "ndvi": 0.1587,
   "frac_verde": 0.0792
  },
  {
-  "zona": "26",
+  "zona": "3",
+  "distrito": "5",
   "ndvi": 0.367,
   "frac_verde": 0.36
  },
  {
-  "zona": "27",
+  "zona": "1",
+  "distrito": "3",
   "ndvi": 0.1944,
   "frac_verde": 0.1263
  },
  {
-  "zona": "28",
+  "zona": "2",
+  "distrito": "3",
   "ndvi": 0.1341,
   "frac_verde": 0.0381
  },
  {
-  "zona": "29",
+  "zona": "6",
+  "distrito": "5",
   "ndvi": 0.4075,
   "frac_verde": 0.4458
  },
  {
-  "zona": "30",
+  "zona": "1",
+  "distrito": "15",
   "ndvi": 0.4465,
   "frac_verde": 0.5577
  },
  {
-  "zona": "31",
+  "zona": "4",
+  "distrito": "5",
   "ndvi": 0.2914,
   "frac_verde": 0.2554
  },
  {
-  "zona": "32",
+  "zona": "3",
+  "distrito": "3",
   "ndvi": 0.1739,
   "frac_verde": 0.0542
  },
  {
-  "zona": "33",
+  "zona": "5",
+  "distrito": "5",
   "ndvi": 0.2968,
   "frac_verde": 0.2709
  },
  {
-  "zona": "34",
+  "zona": "1",
+  "distrito": "16",
   "ndvi": 0.2,
   "frac_verde": 0.1251
  },
  {
-  "zona": "35",
+  "zona": "7",
+  "distrito": "16",
   "ndvi": 0.3124,
   "frac_verde": 0.2831
  },
  {
-  "zona": "36",
+  "zona": "1",
+  "distrito": "2",
   "ndvi": 0.1497,
   "frac_verde": 0.0466
  },
  {
-  "zona": "37",
+  "zona": "3",
+  "distrito": "2",
   "ndvi": 0.1514,
   "frac_verde": 0.0239
  },
  {
-  "zona": "38",
+  "zona": "1",
+  "distrito": "8",
   "ndvi": 0.1826,
   "frac_verde": 0.068
  },
  {
-  "zona": "39",
+  "zona": "7",
+  "distrito": "5",
   "ndvi": 0.1925,
   "frac_verde": 0.0476
  },
  {
-  "zona": "40",
+  "zona": "2",
+  "distrito": "8",
   "ndvi": 0.2162,
   "frac_verde": 0.1014
  },
  {
-  "zona": "41",
+  "zona": "2",
+  "distrito": "15",
   "ndvi": 0.3987,
   "frac_verde": 0.4533
  },
  {
-  "zona": "42",
+  "zona": "2",
+  "distrito": "2",
   "ndvi": 0.1837,
   "frac_verde": 0.1609
  },
  {
-  "zona": "43",
+  "zona": "2",
+  "distrito": "6",
   "ndvi": 0.3617,
   "frac_verde": 0.3739
  },
  {
-  "zona": "44",
+  "zona": "4",
+  "distrito": "2",
   "ndvi": 0.1916,
   "frac_verde": 0.0841
  },
  {
-  "zona": "45",
+  "zona": "1",
+  "distrito": "1",
   "ndvi": 0.2945,
   "frac_verde": 0.2775
  },
  {
-  "zona": "46",
+  "zona": "3",
+  "distrito": "15",
   "ndvi": 0.1772,
   "frac_verde": 0.0719
  },
  {
-  "zona": "47",
+  "zona": "5",
+  "distrito": "16",
   "ndvi": 0.2977,
   "frac_verde": 0.3192
  },
  {
-  "zona": "48",
+  "zona": "4",
+  "distrito": "15",
   "ndvi": 0.199,
   "frac_verde": 0.0956
  },
  {
-  "zona": "49",
+  "zona": "7",
+  "distrito": "15",
   "ndvi": 0.3473,
   "frac_verde": 0.3524
  },
  {
-  "zona": "50",
+  "zona": "1",
+  "distrito": "6",
   "ndvi": 0.3144,
   "frac_verde": 0.3312
  },
  {
-  "zona": "51",
+  "zona": "4",
+  "distrito": "1",
   "ndvi": 0.187,
   "frac_verde": 0.129
  },
  {
-  "zona": "52",
+  "zona": "6",
+  "distrito": "16",
   "ndvi": 0.275,
   "frac_verde": 0.2129
  },
  {
-  "zona": "53",
+  "zona": "6",
+  "distrito": "15",
   "ndvi": 0.4043,
   "frac_verde": 0.4503
  },
  {
-  "zona": "54",
+  "zona": "2",
+  "distrito": "9",
   "ndvi": 0.2316,
   "frac_verde": 0.1976
  },
  {
-  "zona": "55",
+  "zona": "4",
+  "distrito": "16",
   "ndvi": 0.3416,
   "frac_verde": 0.3785
  },
  {
-  "zona": "56",
+  "zona": "4",
+  "distrito": "11",
   "ndvi": 0.2081,
   "frac_verde": 0.094
  },
  {
-  "zona": "57",
+  "zona": "5",
+  "distrito": "15",
   "ndvi": 0.2661,
   "frac_verde": 0.2123
  },
  {
-  "zona": "58",
+  "zona": "5",
+  "distrito": "10",
   "ndvi": 0.2591,
   "frac_verde": 0.1858
  },
  {
-  "zona": "59",
+  "zona": "6",
+  "distrito": "11",
   "ndvi": 0.184,
   "frac_verde": 0.0605
  },
  {
-  "zona": "60",
+  "zona": "1",
+  "distrito": "11",
   "ndvi": 0.2442,
   "frac_verde": 0.1653
  },
  {
-  "zona": "61",
+  "zona": "2",
+  "distrito": "10",
   "ndvi": 0.4514,
   "frac_verde": 0.544
  },
  {
-  "zona": "62",
+  "zona": "5",
+  "distrito": "11",
   "ndvi": 0.1734,
   "frac_verde": 0.0472
  },
  {
-  "zona": "63",
+  "zona": "1",
+  "distrito": "18",
   "ndvi": 0.2595,
   "frac_verde": 0.19
  },
  {
-  "zona": "64",
+  "zona": "3",
+  "distrito": "11",
   "ndvi": 0.2125,
   "frac_verde": 0.1
  },
  {
-  "zona": "65",
+  "zona": "4",
+  "distrito": "18",
   "ndvi": 0.4724,
   "frac_verde": 0.5975
  },
  {
-  "zona": "66",
+  "zona": "2",
+  "distrito": "11",
   "ndvi": 0.2573,
   "frac_verde": 0.1909
  },
  {
-  "zona": "67",
+  "zona": "5",
+  "distrito": "18",
   "ndvi": 0.3101,
   "frac_verde": 0.2853
  },
  {
-  "zona": "68",
+  "zona": "4",
+  "distrito": "10",
   "ndvi": 0.2412,
   "frac_verde": 0.1569
  },
  {
-  "zona": "69",
+  "zona": "3",
+  "distrito": "10",
   "ndvi": 0.3307,
   "frac_verde": 0.3254
  },
  {
-  "zona": "70",
+  "zona": "1",
+  "distrito": "7",
   "ndvi": 0.2835,
   "frac_verde": 0.2097
  },
  {
-  "zona": "71",
+  "zona": "2",
+  "distrito": "21",
   "ndvi": 0.2698,
   "frac_verde": 0.2234
  },
  {
-  "zona": "72",
+  "zona": "3",
+  "distrito": "18",
   "ndvi": 0.2303,
   "frac_verde": 0.1441
  },
  {
-  "zona": "73",
+  "zona": "2",
+  "distrito": "7",
   "ndvi": 0.243,
   "frac_verde": 0.1761
  },
  {
-  "zona": "74",
+  "zona": "1",
+  "distrito": "20",
   "ndvi": 0.3706,
   "frac_verde": 0.3947
  },
  {
-  "zona": "75",
+  "zona": "4",
+  "distrito": "6",
   "ndvi": 0.3509,
   "frac_verde": 0.4049
  },
  {
-  "zona": "76",
+  "zona": "1",
+  "distrito": "21",
   "ndvi": 0.317,
   "frac_verde": 0.2893
  },
  {
-  "zona": "77",
+  "zona": "1",
+  "distrito": "19",
   "ndvi": 0.3545,
   "frac_verde": 0.3824
  },
  {
-  "zona": "78",
+  "zona": "2",
+  "distrito": "19",
   "ndvi": 0.244,
   "frac_verde": 0.1649
  },
  {
-  "zona": "79",
+  "zona": "2",
+  "distrito": "20",
   "ndvi": 0.2707,
   "frac_verde": 0.2021
  },
  {
-  "zona": "80",
+  "zona": "3",
+  "distrito": "19",
   "ndvi": 0.3203,
   "frac_verde": 0.2922
  },
  {
-  "zona": "81",
+  "zona": "3",
+  "distrito": "7",
   "ndvi": 0.3639,
   "frac_verde": 0.3683
  },
  {
-  "zona": "82",
+  "zona": "3",
+  "distrito": "21",
   "ndvi": 0.4211,
   "frac_verde": 0.5158
  },
  {
-  "zona": "83",
+  "zona": "4",
+  "distrito": "20",
   "ndvi": 0.2107,
   "frac_verde": 0.107
  },
  {
-  "zona": "84",
+  "zona": "3",
+  "distrito": "20",
   "ndvi": 0.3811,
   "frac_verde": 0.438
  },
  {
-  "zona": "85",
+  "zona": "4",
+  "distrito": "21",
   "ndvi": 0.3342,
   "frac_verde": 0.3477
  },
  {
-  "zona": "86",
+  "zona": "4",
+  "distrito": "7",
   "ndvi": 0.3836,
   "frac_verde": 0.3918
  },
  {
-  "zona": "87",
+  "zona": "7",
+  "distrito": "7",
   "ndvi": 0.248,
   "frac_verde": 0.1717
  },
  {
-  "zona": "88",
+  "zona": "6",
+  "distrito": "7",
   "ndvi": 0.2729,
   "frac_verde": 0.2044
  },
  {
-  "zona": "89",
+  "zona": "3",
+  "distrito": "1",
   "ndvi": 0.0764,
   "frac_verde": 0.0058
  },
  {
-  "zona": "90",
+  "zona": "2",
+  "distrito": "1",
   "ndvi": 0.1194,
   "frac_verde": 0.0693
  },
  {
-  "zona": "91",
+  "zona": "5",
+  "distrito": "6",
   "ndvi": 0.2729,
   "frac_verde": 0.2031
  },
  {
-  "zona": "92",
+  "zona": "1",
+  "distrito": "9",
   "ndvi": 0.1935,
   "frac_verde": 0.1284
  },
  {
-  "zona": "93",
+  "zona": "1",
+  "distrito": "10",
   "ndvi": 0.2042,
   "frac_verde": 0.1215
  },
  {
-  "zona": "94",
+  "zona": "4",
+  "distrito": "13",
   "ndvi": 0.2514,
   "frac_verde": 0.2065
  },
  {
-  "zona": "95",
+  "zona": "2",
+  "distrito": "16",
   "ndvi": 0.2103,
   "frac_verde": 0.1451
  },
  {
-  "zona": "96",
+  "zona": "8",
+  "distrito": "16",
   "ndvi": 0.2362,
   "frac_verde": 0.1207
  },
  {
-  "zona": "97",
+  "zona": "14",
+  "distrito": "17",
   "ndvi": 0.2248,
   "frac_verde": 0.1068
  },
  {
-  "zona": "98",
+  "zona": "2",
+  "distrito": "18",
   "ndvi": 0.2381,
   "frac_verde": 0.2198
  },
  {
-  "zona": "99",
+  "zona": "5",
+  "distrito": "4",
   "ndvi": 0.204,
   "frac_verde": 0.1015
  },
  {
-  "zona": "100",
+  "zona": "6",
+  "distrito": "4",
   "ndvi": 0.1646,
   "frac_verde": 0.1068
  },
  {
-  "zona": "101",
+  "zona": "7",
+  "distrito": "4",
   "ndvi": 0.3206,
   "frac_verde": 0.3447
  },
  {
-  "zona": "102",
+  "zona": "10",
+  "distrito": "4",
   "ndvi": 0.2748,
   "frac_verde": 0.2602
  },
  {
-  "zona": "103",
+  "zona": "3",
+  "distrito": "9",
   "ndvi": 0.1132,
   "frac_verde": 0.0612
  },
  {
-  "zona": "104",
+  "zona": "4",
+  "distrito": "14",
   "ndvi": 0.2558,
   "frac_verde": 0.1661
  },
  {
-  "zona": "105",
+  "zona": "2",
+  "distrito": "14",
   "ndvi": 0.3956,
   "frac_verde": 0.4917
  },
  {
-  "zona": "106",
+  "zona": "6",
+  "distrito": "17",
   "ndvi": 0.3048,
   "frac_verde": 0.2852
  },
  {
-  "zona": "107",
+  "zona": "8",
+  "distrito": "5",
   "ndvi": 0.3772,
   "frac_verde": 0.3842
  },
  {
-  "zona": "108",
+  "zona": "1",
+  "distrito": "5",
   "ndvi": 0.4853,
   "frac_verde": 0.6
  },
  {
-  "zona": "109",
+  "zona": "2",
+  "distrito": "17",
   "ndvi": 0.2657,
   "frac_verde": 0.177
  },
  {
-  "zona": "110",
+  "zona": "9",
+  "distrito": "17",
   "ndvi": 0.3001,
   "frac_verde": 0.2397
  },
  {
-  "zona": "111",
+  "zona": "3",
+  "distrito": "16",
   "ndvi": 0.3536,
   "frac_verde": 0.3912
  },
  {
-  "zona": "112",
+  "zona": "3",
+  "distrito": "6",
   "ndvi": 0.3399,
   "frac_verde": 0.3744
  },
  {
-  "zona": "113",
+  "zona": "5",
+  "distrito": "7",
   "ndvi": 0.3415,
   "frac_verde": 0.3318
  },
  {
-  "zona": "114",
+  "zona": "8",
+  "distrito": "7",
   "ndvi": 0.2288,
   "frac_verde": 0.1541
  }
